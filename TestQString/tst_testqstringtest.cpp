@@ -9,6 +9,7 @@ public:
     TestQStringTest();
     
 private slots:
+    void toUpper_data();
     void toUpper();
 
 private Q_SLOTS:
@@ -26,8 +27,22 @@ void TestQStringTest::testCase1()
 
 void TestQStringTest::toUpper()
 {
-    QString str = "Hello";
-    QVERIFY(str.toUpper() == "HELLO");
+//    QString str = "Hello";
+//    QVERIFY(str.toUpper() == "HELLO");
+      QFETCH(QString, string);
+      QFETCH(QString, result);
+
+      QCOMPARE(string.toUpper(), result);
+}
+
+void TestQStringTest::toUpper_data()
+{
+    QTest::addColumn<QString>("string");
+    QTest::addColumn<QString>("result");
+
+    QTest::newRow("all lower") << "hello" << "HELLO";
+    QTest::newRow("mixed")     << "Hello" << "HELLO";
+    QTest::newRow("all upper") << "HELLO" << "HELLO";
 }
 
 QTEST_APPLESS_MAIN(TestQStringTest)
